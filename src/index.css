@@ -1,3 +1,55 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import url('https://fonts.maateen.me/kalpurush/font.css');
+
+.font-Kalpurush-bold {
+	font-family: 'Kalpurush', sans-serif;
+}
+p {
+    font-family: 'Kalpurush', sans-serif;
+    font-weight: 600;
+}
+@media (min-width: 1536px) {
+    .container {
+        width: 1650px !important;
+    }
+}
+.footer-menu-item:after {
+	content: '';
+    position: absolute;
+    background: #fff;
+    height: 13px;
+    width: 1px;
+    right: -12px;
+    top: 6px;
+}
+.blue-bg-img {
+	background-image: url('./assets/background-blue.jpg');
+	background-size: cover;
+	background-position: center;
+}
+.swiper-padding {
+	margin-left: 9rem !important;
+	margin-right: 9rem !important;
+}
+.yellowBg {
+	background: rgba(251, 235, 10, 0.6);
+}
+.darkYellowBg {
+    background: #FBEB0A;
+}
+.text-blue-dark {
+	color: #472591; 
+}
+.dark-blue-bg {
+    background: #362164;
+}
+.whiteBox {
+    background: #fff;
+    border: 2px solid #000;
+}
+.share-link-style {
+    
+}

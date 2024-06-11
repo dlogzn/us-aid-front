@@ -1,13 +1,19 @@
-import Footer from "../../../layouts/Footer"
-import Header from "../../../layouts/Header"
-
+import Banner from "../../../components/Banner"
+import PosterGallery from "../../../components/PosterGallery"
+import ShowPosts from "../../../components/ShowPosts"
+import VideoGallery from "../../../components/VideoGallery"
+import WelcomeSection from "../../../components/WelcomeSection"
+import WritePostSection from "../../../components/WritePostSection"
 
 const Home = () => {
     return (
         <>
-            <Header />
-            <h1 className="text-3xl font-bold underline">Home</h1>
-            <Footer />
+            <Banner></Banner>
+            <WelcomeSection></WelcomeSection>
+            <PosterGallery></PosterGallery>
+            <VideoGallery></VideoGallery>
+            <WritePostSection></WritePostSection>
+            <ShowPosts></ShowPosts>
         </>
     )
 }

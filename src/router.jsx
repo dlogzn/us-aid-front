@@ -6,9 +6,9 @@ import Signin from './pages/general/Signin'
 import Signup from './pages/general/Signup'
 
 
-export const router = createBrowserRouter([
-    { path: '/', element: <Home /> },
-    { path: '/signin', element: <Signin /> },
-    { path: '/signup', element: <Signup /> },
-    { path: '/contact', element: <Contact /> }
-])
+// export const router = createBrowserRouter([
+//     { path: '/', element: <Home /> },
+//     { path: '/signin', element: <Signin /> },
+//     { path: '/signup', element: <Signup /> },
+//     { path: '/contact', element: <Contact /> }
+// ])

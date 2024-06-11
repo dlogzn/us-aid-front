@@ -6,7 +6,7 @@ import { FaWhatsapp } from "react-icons/fa";
 
 const WritePostSection = () => {
 	return (
-		<section className='blue-bg-img relative'>
+		<section className='blue-bg-img relative' id="makePost">
 			<div className='container mx-auto'>
 				<div className='text-center'>
 					<div className='mx-auto w-[350px]'>
@@ -41,9 +41,9 @@ const WritePostSection = () => {
 			</div>
 			<div className='absolute top-1/2 bottom-1/2 left-0'>
 				<ul className='flex flex-col gap-1'>
-					<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="">পোস্টার</a></li>
-					<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="">ভিডিও</a></li>
-					<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="">লিখুন</a></li>
+					<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="#makePoster">পোস্টার</a></li>
+					<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="#makeVideo">ভিডিও</a></li>
+					<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="#makePost">লিখুন</a></li>
 				</ul>
 			</div>
 		</section>

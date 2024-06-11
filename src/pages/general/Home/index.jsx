@@ -1,4 +1,5 @@
 import Banner from "../../../components/Banner"
+import PosterCreateSection from "../../../components/PosterCreateSection"
 import PosterGallery from "../../../components/PosterGallery"
 import ShowPosts from "../../../components/ShowPosts"
 import VideoGallery from "../../../components/VideoGallery"
@@ -11,6 +12,7 @@ const Home = () => {
             <Banner></Banner>
             <WelcomeSection></WelcomeSection>
             <PosterGallery></PosterGallery>
+            <PosterCreateSection></PosterCreateSection>
             <VideoGallery></VideoGallery>
             <WritePostSection></WritePostSection>
             <ShowPosts></ShowPosts>

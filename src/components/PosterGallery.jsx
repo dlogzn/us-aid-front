@@ -17,7 +17,7 @@ const PosterGallery = () => {
 	return (
 		<>
 			<section className='blue-bg-img'>
-				<div className='container mx-auto py-48'>
+				<div className='container mx-auto py-36'>
 					<div className='text-center font-Kalpurush-bold'><h2 className='text-white text-6xl font-Kalpurush-bold mb-24'>পোস্টার গ্যালারী</h2></div>
 					<Swiper
 						navigation={true}

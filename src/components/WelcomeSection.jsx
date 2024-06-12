@@ -1,5 +1,6 @@
 import React from 'react';
 import VictoryImg from '../assets/second-screen-img.png';
+import HashTagAmioJitteCai from '../assets/hashtag-amio-jitte-cai.png'
 
 const WelcomeSection = () => {
 	return (
@@ -7,12 +8,12 @@ const WelcomeSection = () => {
 			<div className='container mx-auto flex gap-4'>
 				<div className='w-1/2'>
 					<div className='px-56'>
-						<p className='text-white text-center text-3xl pb-10 font-Kalpurush-bold'>
-							নির্বাচনে জিততে চায় সবাই। জিততে চায় নেতা, জিততে চায় রাজনৈতিক দল। কিন্তু আমার জেতার কথা বলে কয় জন? প্রিয় নেতা মনে রাখবেন, আমার চাওয়া গুলো পূর্ণ হলেই সবার বিজয় হবে। কারণ জিতলে আমি জিতবেন আপনিও।
+						<p className='text-white text-center text-3xl pb-10 font-Kalpurush-bold font-medium'>
+							নির্বাচনে জিততে চায় সবাই।<br />জিততে চায় নেতা,<br />জিততে চায় রাজনৈতিক দল।<br />কিন্তু আমার জেতার কথা<br />বলে কয় জন?<br />প্রিয় নেতা মনে রাখবেন,<br />আমার চাওয়া গুলো পূর্ণ হলেই<br />সবার বিজয় হবে।<br />কারণ<br/> জিতলে আমি,<br />জিতবেন আপনিও।
 						</p>					
 					</div>
-					<div>
-						<p className='text-[#6CCCF2] text-6xl font-bold text-center'>#AMIOJITTECHAI</p>					
+					<div className="mb-24 text-center">
+						<img src={HashTagAmioJitteCai}	alt='#AmioJitteCai' className='mx-auto'/>
 					</div>
 				</div>
 				<div className='w-1/2 flex justify-end'>

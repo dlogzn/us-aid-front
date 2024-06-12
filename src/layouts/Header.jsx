@@ -36,7 +36,7 @@ const Header = () => {
 					<nav className="hidden md:block">
 						<ul className="font-Kongshomj-bold flex gap-8 items-center">
 							{navLinks}
-							<li className="relative">
+							<li className="relative z-10">
 								<FaBars onClick={toggleVisibility} className="text-white text-6xl cursor-pointer"></FaBars>
 								{isVisible && (
 									<div className="hidden-div absolute top-[70px] p-[18px] left-[-190px] w-[250px] border-2 border-white bg-primaryColor rounded-md">
@@ -56,7 +56,7 @@ const Header = () => {
 				<nav>
 					<ul className="font-Kongshomj-bold flex gap-8 items-center justify-between w-full">
 						{mobileNavLinks}
-						<li className="relative">
+						<li className="relative z-10">
 							<FaBars onClick={toggleVisibility} className="text-white text-5xl cursor-pointer"></FaBars>
 							{isVisible && (
 								<div className="hidden-div absolute top-[70px] p-[18px] left-[-190px] w-[250px] border-2 border-white bg-primaryColor rounded-md">

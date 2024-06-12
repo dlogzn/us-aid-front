@@ -2,7 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
-@import url('https://fonts.maateen.me/kalpurush/font.css');
+@font-face {
+    font-family: 'Kalpurush';
+    src: url('./fonts/kalpurush/Kalpurush.eot');
+    src: url('./fonts/kalpurush/Kalpurush.woff') format('woff'),
+            url('./fonts/kalpurush/Kalpurush.ttf') format('truetype'),
+            url('./fonts/kalpurush/Kalpurush.svg#Kalpurush') format('svg'),
+            url('./fonts/kalpurush/Kalpurush.eot?#iefix') format('embedded-opentype');
+    font-weight: normal;
+    font-style: normal;
+}
 
 .font-Kalpurush-bold {
 	font-family: 'Kalpurush', sans-serif;
@@ -27,6 +36,11 @@ p {
 }
 .blue-bg-img {
 	background-image: url('./assets/background-blue.jpg');
+	background-size: cover;
+	background-position: center;
+}
+.light-blue-bg-img {
+	background-image: url('./assets/background-light-blue.jpg');
 	background-size: cover;
 	background-position: center;
 }

@@ -18,41 +18,43 @@ import { Pagination, Navigation } from 'swiper/modules';
 
 const PosterCreateSection = () => {
 	return (
-		<section className='blue-bg-img relative' id="makePost">
+		<section className='light-blue-bg-img relative' id="makePoster">
 			<div className='container mx-auto'>
 				<div className='text-center'>
-					<div className='mx-auto w-[350px]'>
+					<div className='mx-auto w-[550px]'>
 						<div className='font-Kalpurush-bold yellowBg rounded-br-[22px] rounded-bl-[22px] text-5xl py-5 px-6 border-2 text-blue-dark '>পোস্টার তৈরি করুন</div>
 					</div>
 				</div>
 
-				<div>
+				<div className='flex justify-between mt-32'>
 					<div>
+						<div className='font-Kalpurush-bold font-Kalpurush-bold text-center mb-4 py-4 bg-white text-2xl'>ছবি আপলোড করুন</div>
 						<img src={UploadImg} alt=""/>
 					</div>
-					<div><img src={Finalimage} alt=""/></div>
 					<div>
-						<div className='font-Kalpurush-bold'>স্লোগান নির্বাচিত করুন</div>
+
+						<img src={Finalimage} alt=""/>
+					</div>
+					<div>
+						<div className='font-Kalpurush-bold font-Kalpurush-bold text-center mb-4 py-4 bg-white text-2xl'>স্লোগান নির্বাচিত করুন</div>
 						<div className='slogan'>
 						<Swiper
-							slidesPerView={3}
-							spaceBetween={30}
-							direction={'vertical'}
-							pagination={{
-								clickable: true,
-							}}
-							modules={[Pagination]}
+							slidesPerView={4}
+							spaceBetween={10}
+							direction={'vertical'}							
+							navigation={true}
+							autoplay={{ delay: 2000 }}
+							modules={[Pagination, Navigation, Autoplay]}
 							className="sloganSelect"
 						>
-							<SwiperSlide>Slide 1</SwiperSlide>
-							<SwiperSlide>Slide 2</SwiperSlide>
-							<SwiperSlide>Slide 3</SwiperSlide>
-							<SwiperSlide>Slide 4</SwiperSlide>
-							<SwiperSlide>Slide 5</SwiperSlide>
-							<SwiperSlide>Slide 6</SwiperSlide>
-							<SwiperSlide>Slide 7</SwiperSlide>
-							<SwiperSlide>Slide 8</SwiperSlide>
-							<SwiperSlide>Slide 9</SwiperSlide>
+							<SwiperSlide>যানজটমুক্ত শহর চাই</SwiperSlide>
+							<SwiperSlide>দূষণমুক্ত পরিবেশ চাই</SwiperSlide>
+							<SwiperSlide>ন্যায্য মূল্যে কিনতে চাই</SwiperSlide>
+							<SwiperSlide>চাকরির নিশ্চয়তা চাই</SwiperSlide>
+							<SwiperSlide>যানজটমুক্ত শহর চাই</SwiperSlide>
+							<SwiperSlide>দূষণমুক্ত পরিবেশ চাই</SwiperSlide>
+							<SwiperSlide>ন্যায্য মূল্যে কিনতে চাই</SwiperSlide>
+							<SwiperSlide>চাকরির নিশ্চয়তা চাই</SwiperSlide>
 						</Swiper>
 						</div>
 					</div>

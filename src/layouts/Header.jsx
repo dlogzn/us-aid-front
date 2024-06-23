@@ -4,11 +4,12 @@ import logo from "../assets/Ami-O-Jitte-cai-logo.webp";
 import DILOGO from "../assets/democracy-nternation-logo.png";
 import USAIDLOGO from "../assets/us-aid-english.png";
 import { FaBars } from "react-icons/fa";
+import { FcGoogle } from "react-icons/fc";
 import { useState } from "react";
 
 const links = [{id: 1, to: '/', title: 'আমাদের কথা'}, {id: 2, to: '/signin', title: 'আপনার দাবি'}, {id: 3, to: '/contact', title: 'যোগাযোগ'}]
-const navLinks = links.map(navLink => <li className="hidden md:block" key={navLink.id}><Link  to={navLink.to} className="text-white rounded-md border-2 border-white md:px-4 md:py-4 lg:px-8 lg:py-4 md:text-md lg:text-xl font-Kongshomj-bold">{navLink.title}</Link></li>)
-const mobileNavLinks = links.map(navLink => <li className="block md:hidden" key={navLink.id}><Link to={navLink.to} className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block font-Kongshomj-bold">{navLink.title}</Link></li>)
+const navLinks = links.map(navLink => <li className="hidden md:block" key={navLink.id}><Link  to={navLink.to} className="text-white rounded-md border-2 border-white md:px-4 md:py-4 lg:px-8 lg:py-4 md:text-md lg:text-xl font-Kalpurush-bold">{navLink.title}</Link></li>)
+const mobileNavLinks = links.map(navLink => <li className="block md:hidden" key={navLink.id}><Link to={navLink.to} className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-xs md:text-md block font-Kalpurush-bold">{navLink.title}</Link></li>)
 
 const Header = () => {
 
@@ -20,7 +21,7 @@ const Header = () => {
 
     return (
 		<>
-			<section className="bg-white md:bg-primaryColor">
+			<section className="bg-white md:bg-primaryColor pl-2 pr-2">
 				<header className="container flex mx-auto justify-between items-center py-4 relative flex-wrap flex-md-nowrap">
 					<div className="flex justify-between items-end w-full md:w-auto">
 						<div className="block md:hidden">
@@ -42,8 +43,12 @@ const Header = () => {
 									<div className="hidden-div absolute top-[70px] p-[18px] left-[-190px] w-[250px] border-2 border-white bg-primaryColor rounded-md">
 										<ul>
 											{/* mobileNavLinks */}
-											<li><a className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block mb-4" href="">লগইন</a></li>
-											<li><a className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block" href="">সাইন আপ</a></li>
+											<li>											
+												<Link className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block mb-4 font-Kalpurush-bold" to="/login">লগইন</Link>
+											</li>
+											<li>
+												<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block font-Kalpurush-bold" to="/register">সাইন আপ</Link>
+											</li>
 										</ul>
 									</div>
 								)}
@@ -52,17 +57,21 @@ const Header = () => {
 					</nav>
 				</header>
 			</section>
-			<section className="block md:hidden w-full">
-				<nav>
-					<ul className="font-Kongshomj-bold flex gap-8 items-center justify-between w-full">
+			<section className="relative z-10 block md:hidden w-full hero-mobile-nav">
+				<nav className="container flex mx-auto justify-between items-center py-4 relative flex-wrap flex-md-nowrap">
+					<ul className="font-Kongshomj-bold flex gap-2 md:gap-8 items-center justify-between w-full">
 						{mobileNavLinks}
 						<li className="relative z-10">
 							<FaBars onClick={toggleVisibility} className="text-white text-5xl cursor-pointer"></FaBars>
 							{isVisible && (
 								<div className="hidden-div absolute top-[70px] p-[18px] left-[-190px] w-[250px] border-2 border-white bg-primaryColor rounded-md">
 									<ul>											
-										<li><a className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block mb-4" href="">লগইন</a></li>
-										<li><a className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block" href="">সাইন আপ</a></li>
+										<li>											
+											<Link className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block mb-4 font-Kalpurush-bold" to="/login">লগইন</Link>
+										</li>										
+										<li>											
+											<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block font-Kalpurush-bold" to="/register">সাইন আপ</Link>
+										</li>
 									</ul>
 								</div>
 							)}

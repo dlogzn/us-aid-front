@@ -17,15 +17,39 @@ const PosterGallery = () => {
 	return (
 		<>
 			<section className='blue-bg-img'>
-				<div className='container mx-auto py-36'>
-					<div className='text-center font-Kalpurush-bold'><h2 className='text-white text-6xl font-Kalpurush-bold mb-24'>পোস্টার গ্যালারী</h2></div>
+				<div className='container mx-auto pt-12 md:pt-20 pb-12 md:pb-36 pl-12 pr-12'>
+					<div className='text-center font-Kalpurush-bold'><h2 className='text-white text-3xl md:text-6xl font-Kalpurush-bold mb-12 md:mb-24'>পোস্টার গ্যালারী</h2></div>
 					<Swiper
 						navigation={true}
 						modules={[Pagination, Navigation, Autoplay]}
 						autoplay={{ delay: 5000 }}
-						className="mySwiper pl-14 pr-14"
+						className="mySwiper pl-14 pr-14 verticalSlider"
 						spaceBetween={30}
 						slidesPerView={4}
+						breakpoints={{
+							0: {
+							  slidesPerView: 1,
+							},
+							400:{
+							  slidesPerView:2,
+							},
+							639: {
+							  slidesPerView: 3,	
+							  //direction: 'vertical'
+							},
+							865:{
+							  slidesPerView:4
+							},
+							1000:{
+							  slidesPerView:4
+							},
+							1500:{
+							  slidesPerView:4
+							},
+							1700:{
+							  slidesPerView:4
+							}
+						  }}
 					>
 						<SwiperSlide>
 							<img src={poster_sample_1} alt="Slide 1" className="w-full h-auto" />

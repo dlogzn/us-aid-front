@@ -8,6 +8,9 @@ export default {
     extend: {
       colors: {
         'primaryColor': '#2BA5DD',
+      },
+      backgroundImage: {
+        'common-bg': "url('/src/assets/background-blue.jpg')",
       }
     },
   },

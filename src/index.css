@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-@font-face {
+/* @font-face {
     font-family: 'Kalpurush';
     src: url('./fonts/kalpurush/Kalpurush.eot');
     src: url('./fonts/kalpurush/Kalpurush.woff') format('woff'),
@@ -11,7 +11,7 @@
             url('./fonts/kalpurush/Kalpurush.eot?#iefix') format('embedded-opentype');
     font-weight: normal;
     font-style: normal;
-}
+} */
 
 .font-Kalpurush-bold {
 	font-family: 'Kalpurush', sans-serif;
@@ -25,6 +25,11 @@ p {
         width: 1650px !important;
     }
 }
+
+.gmail-login-button {
+    @apply bg-white border border-gray-300 text-gray-700 font-medium py-2 px-4 rounded shadow-sm hover:bg-gray-50 hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500;
+  }
+
 .footer-menu-item:after {
 	content: '';
     position: absolute;
@@ -49,13 +54,13 @@ p {
 	margin-right: 9rem !important;
 }
 .yellowBg {
-	background: rgba(251, 235, 10, 0.6);
+	background: #FBEB0A;
 }
 .darkYellowBg {
     background: #FBEB0A;
 }
 .text-blue-dark {
-	color: #472591; 
+	color: #362164; 
 }
 .dark-blue-bg {
     background: #362164;
@@ -92,4 +97,52 @@ p {
     width: 150px;
     height: 150px;
     object-fit: cover;
+}
+
+.rsw-editor {
+    border: 2px solid #1c1b1b !important;
+    border-radius: 18px !important;
+    display: flex;
+    flex-direction: column;
+    min-height: 100px;
+    overflow: hidden;
+}
+.rsw-ce {
+    flex: 1 0 auto;
+    outline: none;
+    padding: 40px !important;
+    background: #fff !important;
+    font-family: 'Kalpurush', sans-serif;
+    font-weight: 600;
+    color: #362164;
+    font-size: 1.25rem;
+    min-height: 350px;
+    height: 350px;
+    overflow-y: scroll;
+}
+.rsw-ce div {
+    font-family: 'Kalpurush', sans-serif;
+    font-weight: 600;
+    color: #362164;
+    font-size: 1.25rem;  
+    margin-bottom: 15px;  
+}
+
+
+@media(max-width: 767px) {
+    .verticalSlider {
+        width: 100%;
+        height: 100%;
+    }
+}
+@media(max-width: 639px) {
+    .hero-mobile-nav {
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+}
+@media(max-width: 489px) {
+    .hero-mobile-nav {
+
+    }
 }

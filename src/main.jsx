@@ -6,7 +6,9 @@ import './stylesheet.css'
 import Root from './components/Root';
 import ErrorPage from './components/ErrorPage';
 import Home from './pages/general/Home';
-
+import Login from './pages/general/Login';
+import Register from './pages/general/Register';
+import AuthProvider from './providers/AuthProvider';
 
 const router = createBrowserRouter([
 	{
@@ -18,6 +20,14 @@ const router = createBrowserRouter([
 				path: "/",
 				element: <Home></Home>,
 			},
+			{
+				path: "/login",
+				element: <Login></Login>,
+			},
+			{
+				path: "/register",
+				element: <Register></Register>
+			},
 		]
 	},
 ]);
@@ -25,6 +35,8 @@ const router = createBrowserRouter([
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 	<React.StrictMode>
-		<RouterProvider router={router} />
+		<AuthProvider>
+			<RouterProvider router={router}></RouterProvider>
+		</AuthProvider>		
 	</React.StrictMode>,
 )

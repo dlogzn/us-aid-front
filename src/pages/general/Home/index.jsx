@@ -7,6 +7,9 @@ import WelcomeSection from "../../../components/WelcomeSection"
 import WritePostSection from "../../../components/WritePostSection"
 
 const Home = () => {
+
+
+    
     return (
         <>
             <Banner></Banner>

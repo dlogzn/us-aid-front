@@ -10,7 +10,7 @@ const ErrorPage = () => {
   return (
     <>
         <Header></Header>
-        <div className="hero min-h-screen bg-base-200 my-4">
+        <div className="hero min-h-screen bg-base-200 py-8">
             <div className="hero-content text-center">
                 <div className="max-w-md">
                 <h1 className="text-5xl font-bold">404 Page</h1>

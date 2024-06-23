@@ -109,9 +109,9 @@ const WritePostSection = () => {
 
 	return (
 		<section className='blue-bg-img relative pb-10' id="makePost">
-			<div className='container mx-auto'>
+			<div className='container mx-auto px-4'>
 				<div className='text-center'>
-					<div className='mx-auto w-[350px]'>
+					<div className='mx-auto w-[320px] md:w-[350px]'>
 						<div className='font-Kalpurush-bold yellowBg rounded-br-[22px] rounded-bl-[22px] text-5xl py-5 px-6 border-2 text-blue-dark '>লিখুন</div>
 					</div>
 				</div>

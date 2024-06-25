@@ -4,6 +4,8 @@ import { FaFacebookF, FaInstagram, FaTwitter } from "react-icons/fa6";
 import { FaWhatsapp } from "react-icons/fa";
 import Swal from 'sweetalert2';
 import { FaCircleArrowUp } from "react-icons/fa6";
+import axios from 'axios';
+import PostCard from './PostCard';
 
 import { 
 	BtnBold, 
@@ -36,70 +38,88 @@ const WritePostSection = () => {
   
 	} , []);
 
+	const [homePagePosts, sethomePagePosts] = useState([]);
+	const [reloadSixPost , setReloadSixPost] = useState(false);
 
-
-	const handlePostCreation = e =>{
-		e.preventDefault();
-		
-		// topic_id, title, content
-
-		const topicsid = e.target.topicsid.value;
-		const content = html;
-		console.log(topicsid, content);
-
-		fetch(`https://businessautomata.com/us-aid-api/api/create/post`, {
-			method: 'POST',
+	useEffect ( ()=> {
+	  
+		fetch(`https://businessautomata.com/us-aid-api/api/get/posts?limit=6`, {
+			method: 'GET',
 			headers: {
-				'Accept': 'application/json',
 				'content-type': 'application/json'
+			},			
+		})
+		.then(res => res.json())
+		.then(data => {			
+			  sethomePagePosts(data.payload);
+		})
+  
+	} , [reloadSixPost]);
+
+	const handlePostCreation = async (e) => {
+	  e.preventDefault();
+	  
+	  const topicsid = e.target.topicsid.value;
+	  const content = html;
+	  console.log(topicsid, content);
+  
+	  const token = localStorage.getItem('token');
+  
+	  try {
+		// Create a new post
+		
+		// Open API for Test
+		//const response = await axios.post('https://businessautomata.com/us-aid-api/api/create/post', 
+
+		//Member API for Production
+		const response = await axios.post('https://businessautomata.com/us-aid-api/api/member/posts/', 
+		  {
+			topic_id: topicsid,
+			title: 'টাইটেল',
+			content: content,
+		  },
+		  {
+			headers: {
+			  'Authorization': `Bearer ${token}`,
+			  'Accept': 'application/json',
+			  'Content-Type': 'application/json',
 			},
-
-			body: JSON.stringify({
-				topic_id: topicsid,				
-				title: 'টাইটেল',
-				content: content,
-			})
-		})
-		.then((response) => {
-			if(!response.ok) throw new Error(response.status);
-			else return response.json();
-		})
-		.then(data => {
-			
-			console.log('After add return: ' , data);
-
-			if (data.payload.id) {
-				Swal.fire({
-					title: 'সফল!',
-					text: 'পোস্ট সফল হয়েছে',
-					icon: 'success',
-					confirmButtonText: 'Cool'
-				})
-				// Navigate to my booking Class
-				//navigateAfterConfirmed(hereAgain.pathname);		
-
-				const id = data.payload.id;
-
-				// Getting the latest post
-				fetch(`https://businessautomata.com/us-aid-api/api/get/post?post_id=${id}`, {
-					method: 'GET',
-					headers: {
-						'content-type': 'application/json'
-					},			
-				})
-				.then(res => res.json())
-				.then(data => {
-					console.log('Getting latest post: ' , data);					
-				})
-
-			}
-			
-		})
-
-	}
+		  }
+		);
+  
+		console.log('After add return:', response.data);
+  
+		if (response.data.payload.id) {
+		  Swal.fire({
+			title: 'সফল!',
+			text: 'পোস্ট সফল হয়েছে',
+			icon: 'success',
+			confirmButtonText: 'Cool',
+		  });
+  
+		//   try {
+		// 	const id = response.data.payload.deterrent;
 	
+		// 	// Getting the latest post
+		// 	const postResponse = await axios.get(`https://businessautomata.com/us-aid-api/api/get/post?deterrent=${id}`, {
+		// 		headers: {
+		// 		'Content-Type': 'application/json',
+		// 		},
+		// 	});
+		// 	setReloadSixPost(true);
+		// 	console.log('Getting latest post:', postResponse.data);
 
-	const [editorContent, setEditorContent] = useState('');
+		// 	} catch (error) {
+		// 		console.error('Error:', error);
+		// 	}
+ 
+		  
+		}
+	  } catch (error) {
+		console.error('Error:', error);
+	  }
+	};
+
 
 	const [html, setHtml] = useState("<div>জিততে চায় সবাই। জিততে চায় নেতা, জিততে চায় রাজনৈতিক দল। কিন্তু আমার জেতার কথা বলে কয় জন?</div><div>আমি চাই, নাগরিক দাবির কথায় কেউ মুখ চেপে ধরবে না। আগে বাড়ি ফিরতে হবে না। নিরাপদে আমি চলাফেরা করতে পারব যখন তখন। আদিবাসী বলে আমার উপরে চালানো হবে না আক্রমণ। ধর্মীয় সংখ্যালঘু বলে আমার বাসা বাড়ি প্রার্থনা ঘর ভেঙে দেওয়া হবে না। ক্ষমতাধরদের কাছে আইন-শৃঙ্খলা বাহিনী জিম্মি হয়ে থাকবে না। সিন্ডিকেট করে নিত্য প্রয়োজনীয় জিনিসের দাম ইচ্ছামতন বাড়ানো হবে না। ঘন্টার পর ঘন্টা যানজটে আটকে থাকতে হবে না। লোডশেডিং কিংবা জলাবদ্ধতায় ব্যাহত হবেনা জনজীবন। আমি চাই, সকল স্বাস্থ্যসেবার সুবিধা সহ হাসপাতাল হবে পাহাড়ে আর গ্রামগঞ্জে। ভুল চিকিৎসায় ভুল ব্যবস্থাপনায় জবাবদিহি করতে হবে কর্তৃপক্ষকে। খুলে রাখা রাস্তা কাজ শেষে মেরামত করতে হবে। দুর্নীতিবাজদের, অবৈধ অর্থ পাচারকারীদের আইনের আওতায় আনা হবে।</div><div>নির্বাচনে শুধু নেতা নয়, দল নয়, আমারও জিততে হবে। আমার চাওয়া গুলো পূরণ হলেই জনতার বিজয় হবে।</div><div>আমিও জিততে চাই। কারণ আমার জয়েই আপনার আসল বিজয়।</div>");
 
@@ -108,6 +128,7 @@ const WritePostSection = () => {
 	}
 
 	return (
+		<>
 		<section className='blue-bg-img relative pb-10' id="makePost">
 			<div className='container mx-auto px-4'>
 				<div className='text-center'>
@@ -149,23 +170,10 @@ const WritePostSection = () => {
 					</div>
 
 					<div className='flex w-full md:w-auto justify-center mt-10'>
-						<button className="btn bg-white text-3xl text-[#EA2027] font-Kalpurush-bold font-bold"><FaCircleArrowUp /> পোস্ট করুন</button>
+						<button className="btn bg-white text-3xl text-[#EA2027] font-Kalpurush-bold font-bold"><FaCircleArrowUp /> পোস্ট তৈরি করুন</button>
 					</div>
 
 				</form>	
-				
-
-				<div className='whiteBox mt-16 text-2xl rounded-3xl font-bold p-10 mx-4 md:mx-0 hidden'>
-					<p className='font-Kalpurush-bold text-blue-dark'>জিততে চায় সবাই। জিততে চায় নেতা, জিততে চায় রাজনৈতিক দল। কিন্তু আমার জেতার কথা বলে কয় জন?</p>
-					<br />
-					<p className='font-Kalpurush-bold text-blue-dark'> আমি চাই, নাগরিক দাবির কথায় কেউ মুখ চেপে ধরবে না। আগে বাড়ি ফিরতে হবে না। নিরাপদে আমি চলাফেরা করতে পারব যখন তখন। আদিবাসী বলে আমার উপরে চালানো হবে না আক্রমণ। ধর্মীয় সংখ্যালঘু বলে আমার বাসা বাড়ি প্রার্থনা ঘর ভেঙে দেওয়া হবে না। ক্ষমতাধরদের কাছে আইন-শৃঙ্খলা বাহিনী জিম্মি হয়ে থাকবে না। সিন্ডিকেট করে নিত্য প্রয়োজনীয় জিনিসের দাম ইচ্ছামতন বাড়ানো হবে না। ঘন্টার পর ঘন্টা যানজটে আটকে থাকতে হবে না। লোডশেডিং কিংবা জলাবদ্ধতায় ব্যাহত হবেনা জনজীবন। আমি চাই, সকল স্বাস্থ্যসেবার সুবিধা সহ হাসপাতাল হবে পাহাড়ে আর গ্রামগঞ্জে। ভুল চিকিৎসায় ভুল ব্যবস্থাপনায় জবাবদিহি করতে হবে কর্তৃপক্ষকে। খুলে রাখা রাস্তা কাজ শেষে মেরামত করতে হবে। দুর্নীতিবাজদের, অবৈধ অর্থ পাচারকারীদের আইনের আওতায় আনা হবে। </p>
-					<br />
-					<p className='font-Kalpurush-bold text-blue-dark'> আমি চাই, লেখাপড়া শেষে নিশ্চিত করা হবে আমার কর্মসংস্থান। আমি চাই জাতি বর্ণ নির্বিশেষে সকলেই পাবেন নাগরিকের সম্মান। </p>
-					<br />
-					<p className='font-Kalpurush-bold text-blue-dark'> নির্বাচনে শুধু নেতা নয়, দল নয়, আমারও জিততে হবে। আমার চাওয়া গুলো পূরণ হলেই জনতার বিজয় হবে। </p>
-					<br />
-					<p className='font-Kalpurush-bold text-blue-dark'> আমিও জিততে চাই। কারণ আমার জয়েই আপনার আসল বিজয়।</p>
-				</div>
 
 				<div className='flex items-center flex-wrap gap-8 mt-8 pb-24 hidden'>
 					<div className='flex w-full md:w-auto justify-center'>
@@ -179,6 +187,16 @@ const WritePostSection = () => {
 				</div>
 			</div>
 		</section>
+		<section className='dark-blue-bg relative px-4 md:px-0 py-24'>
+			<div className='container mx-auto'>
+				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+					{
+						homePagePosts.map( (homePagePostsData, index) =><PostCard key={index} homePagePostsData={homePagePostsData}></PostCard> )
+					}
+				</div>
+			</div>
+		</section>
+		</>
 	)
 }
 

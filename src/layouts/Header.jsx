@@ -4,20 +4,26 @@ import logo from "../assets/Ami-O-Jitte-cai-logo.webp";
 import DILOGO from "../assets/democracy-nternation-logo.png";
 import USAIDLOGO from "../assets/us-aid-english.png";
 import { FaBars } from "react-icons/fa";
-import { FcGoogle } from "react-icons/fc";
-import { useState } from "react";
+import { useContext, useState } from "react";
+import { AuthContext } from "../providers/AuthProvider";
 
-const links = [{id: 1, to: '/', title: 'আমাদের কথা'}, {id: 2, to: '/signin', title: 'আপনার দাবি'}, {id: 3, to: '/contact', title: 'যোগাযোগ'}]
+const links = [{id: 1, to: '/about-us', title: 'আমাদের কথা'}, {id: 2, to: '/login', title: 'আপনার দাবি'}, {id: 3, to: '/contact', title: 'যোগাযোগ'}]
 const navLinks = links.map(navLink => <li className="hidden md:block" key={navLink.id}><Link  to={navLink.to} className="text-white rounded-md border-2 border-white md:px-4 md:py-4 lg:px-8 lg:py-4 md:text-md lg:text-xl font-Kalpurush-bold">{navLink.title}</Link></li>)
 const mobileNavLinks = links.map(navLink => <li className="block md:hidden" key={navLink.id}><Link to={navLink.to} className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-xs md:text-md block font-Kalpurush-bold">{navLink.title}</Link></li>)
 
 const Header = () => {
+
+	const { user , logOut } = useContext(AuthContext);
 
 	const [isVisible, setIsVisible] = useState(false);
 	
 	const toggleVisibility = () => {
 		setIsVisible(!isVisible);
 	};
+
+	const handleLogOut = ()=>{
+		logOut().then(ruselt=>{}).catch(error=>{ console.error(error) });
+	}
 
     return (
 		<>

@@ -18,7 +18,6 @@ const Home = () => {
             <PosterCreateSection></PosterCreateSection>
             <VideoGallery></VideoGallery>
             <WritePostSection></WritePostSection>
-            <ShowPosts></ShowPosts>
         </>
     )
 }

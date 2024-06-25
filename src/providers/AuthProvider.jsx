@@ -28,28 +28,30 @@ const AuthProvider = ({children}) => {
 	}
 
 	// checking the user already logged in or not - set an observer
-	useEffect( ()=>{
-		const unSubscribe =  onAuthStateChanged( auth, currentUser=>{
-			console.log('current user find ' , currentUser );
-			const useEmail = currentUser?.email || user?.email;			
-			const loggedUser = { email: useEmail };
-			setUser(currentUser);
-			setLoading(false); // hiding the loading after getting the user infomaration
-			// for - if user exists then issue a token
-			if (currentUser){
-				axios.post('https://b9-a11-server.vercel.app/jwt', loggedUser , {withCredentials: true})
-				.then( res => {
-					console.log('token resp' , res.data);
-				})
-			} else {
-				axios.post('https://b9-a11-server.vercel.app/logout', loggedUser , {withCredentials: true})
-				.then( res => {
-					console.log('token logout resp' , res.data);
-				})
-			}
-		});
-		return () =>{ unSubscribe(); }
-	} , []);
+	// useEffect( ()=>{
+	// 	const unSubscribe =  onAuthStateChanged( auth, currentUser=>{
+	// 		console.log('current user find ' , currentUser );
+	// 		const useEmail = currentUser?.email || user?.email;			
+	// 		const loggedUser = { email: useEmail };
+	// 		setUser(currentUser);
+	// 		setLoading(false); // hiding the loading after getting the user infomaration
+	// 		// for - if user exists then issue a token
+	// 		if (currentUser){
+	// 			axios.post('https://b9-a11-server.vercel.app/jwt', loggedUser , {withCredentials: true})
+	// 			.then( res => {
+	// 				console.log('token resp' , res.data);
+	// 			})
+	// 		} else {
+	// 			axios.post('https://b9-a11-server.vercel.app/logout', loggedUser , {withCredentials: true})
+	// 			.then( res => {
+	// 				console.log('token logout resp' , res.data);
+	// 			})
+	// 		}
+	// 	});
+	// 	return () =>{ unSubscribe(); }
+	// } , []);
+
+
 
 	const logOut = async ()=> {
 		try {
@@ -70,9 +72,30 @@ const AuthProvider = ({children}) => {
 		return signInWithPopup( auth , githubProvider )
 	}
 
+	/*Normal Login Action*/
+
+	// useEffect(() => {
+	// 	const token = localStorage.getItem('token');
+	// 	if (token) {
+	// 	  axios.get('http://localhost:8000/api/user', {
+	// 		headers: {
+	// 		  Authorization: `Bearer ${token}`
+	// 		}
+	// 	  })
+	// 	  .then(response => {
+	// 		setUser(response.data);
+	// 	  })
+	// 	  .catch(() => {
+	// 		localStorage.removeItem('token');
+	// 		setUser(null);
+	// 	  });
+	// 	}
+	//   }, []);
+	
+	/**/
 
 
-	const authInfo = { user , createUser, signInUser, logOut, loading, signInWithGoogle , signInWithGitHub }
+	const authInfo = { user , setUser, createUser, signInUser, logOut, loading, signInWithGoogle , signInWithGitHub }
 
 	return (
 		<AuthContext.Provider value={authInfo}>

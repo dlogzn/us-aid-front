@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const PostCard = ({ homePagePostsData }) => {
 
-	const {  id, topic, title, content, user  } = homePagePostsData;	
+	const { topic, title, content, user, deterrent  } = homePagePostsData;	
 
 	const truncateText = (text, wordLimit) => {
 		const words = text.split(' ');
@@ -20,8 +20,7 @@ const PostCard = ({ homePagePostsData }) => {
 			<p className='pb-4 text-black'>{user.name}, {user.occupation}, {user.address}</p>
 			{ <div className='text-normal font-semibold text-black font-Kalpurush-bold min-h-[140px]' dangerouslySetInnerHTML={{ __html: truncateText(content, 50) }} /> }
 			<div className='flex justify-end'>				
-				<Link className='bg-black rounded-lg font-Kalpurush-bold text-white py-2 px-4' to={`/post-detail/${id}`}>আরো পড়ুন</Link>
-				{/* https://businessautomata.com/us-aid-api/api/get/post?post_id=2 */}
+				<Link className='bg-black rounded-lg font-Kalpurush-bold text-white py-2 px-4' to={`/post-detail/${deterrent}`}>আরো পড়ুন</Link>				
 			</div>
 		</div>
 	)

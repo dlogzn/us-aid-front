@@ -2,6 +2,7 @@ import USAIDBANGLALOGO from "../assets/usaid-bangla.jpg";
 import DILOGO from "../assets/democracy-nternation-logo.png";
 import { FaFacebookF } from "react-icons/fa";
 import { TfiYoutube } from "react-icons/tfi";
+import ButtonLeft from "../components/ButtonLeft";
 
 const Footer = () => {
     return (
@@ -10,10 +11,10 @@ const Footer = () => {
             <div className="container mx-auto">
                 <div className="footer-top-part flex items-center justify-center flex-col md:flex-row gap-6 md:gap-28">
                     <div>
-                        <img src={ USAIDBANGLALOGO } alt="USAID logo" className="w-[250px]" />
+                        <img src={ USAIDBANGLALOGO } alt="USAID logo" className="w-[150px] md:w-[250px]" />
                     </div>
                     <div>
-                        <img src={ DILOGO } alt="USAID logo" className="w-[250px]" />                    
+                        <img src={ DILOGO } alt="USAID logo" className="w-[150px] md:w-[250px]" />                    
                     </div>
                 </div>
             </div>
@@ -44,15 +45,7 @@ const Footer = () => {
                 </div>
             </div>
 
-        </div>
-
-		<div className='absolute top-1/2 bottom-1/2 left-0 hidden'>
-			<ul className='flex flex-col gap-1'>
-				<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="#makePoster">পোস্টার</a></li>
-				<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="#makeVideo">ভিডিও</a></li>
-				<li className=''><a className='text-blue-dark font-bold darkYellowBg border rounded-r-lg font-Kalpurush-bold border-white px-2 py-3 min-w-[125px] block text-center' alt="#makePost">লিখুন</a></li>
-			</ul>
-		</div>
+        </div>        
         </>
     )
 }

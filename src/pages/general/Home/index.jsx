@@ -1,15 +1,11 @@
 import Banner from "../../../components/Banner"
 import PosterCreateSection from "../../../components/PosterCreateSection"
 import PosterGallery from "../../../components/PosterGallery"
-import ShowPosts from "../../../components/ShowPosts"
 import VideoGallery from "../../../components/VideoGallery"
 import WelcomeSection from "../../../components/WelcomeSection"
 import WritePostSection from "../../../components/WritePostSection"
 
-const Home = () => {
-
-
-    
+const Home = () => {    
     return (
         <>
             <Banner></Banner>

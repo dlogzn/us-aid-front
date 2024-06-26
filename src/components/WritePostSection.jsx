@@ -6,17 +6,17 @@ import Swal from 'sweetalert2';
 import { FaCircleArrowUp } from "react-icons/fa6";
 import axios from 'axios';
 import PostCard from './PostCard';
-
+import ReadyPost from './ReadyPost';
 import { 
 	BtnBold, 
 	BtnRedo,
 	BtnUndo,
 	BtnItalic, 
-	createButton, 
 	Editor, 
 	EditorProvider, 
 	Toolbar
   } from 'react-simple-wysiwyg';
+
 
 
 const WritePostSection = () => {
@@ -39,7 +39,7 @@ const WritePostSection = () => {
 	} , []);
 
 	const [homePagePosts, sethomePagePosts] = useState([]);
-	const [reloadSixPost , setReloadSixPost] = useState(false);
+	const [reloadSixPost , setReloadSixPost] = useState(false);	
 
 	useEffect ( ()=> {
 	  
@@ -56,68 +56,66 @@ const WritePostSection = () => {
   
 	} , [reloadSixPost]);
 
+	const [postData, setPostData] = useState(null);
 	const handlePostCreation = async (e) => {
-	  e.preventDefault();
-	  
-	  const topicsid = e.target.topicsid.value;
-	  const content = html;
-	  console.log(topicsid, content);
-  
-	  const token = localStorage.getItem('token');
-  
-	  try {
+
+		e.preventDefault();
+		
+		const topicsid = e.target.topicsid.value;
+		const content = html;
+		console.log(topicsid, content);
+
+		const token = localStorage.getItem('token');
+
+		try {
+
 		// Create a new post
 		
 		// Open API for Test
 		//const response = await axios.post('https://businessautomata.com/us-aid-api/api/create/post', 
-
-		//Member API for Production
-		const response = await axios.post('https://businessautomata.com/us-aid-api/api/member/posts/', 
-		  {
+		
+		const userData = {
 			topic_id: topicsid,
-			title: 'টাইটেল',
-			content: content,
-		  },
-		  {
-			headers: {
-			  'Authorization': `Bearer ${token}`,
-			  'Accept': 'application/json',
-			  'Content-Type': 'application/json',
-			},
-		  }
-		);
-  
-		console.log('After add return:', response.data);
-  
-		if (response.data.payload.id) {
-		  Swal.fire({
-			title: 'সফল!',
-			text: 'পোস্ট সফল হয়েছে',
-			icon: 'success',
-			confirmButtonText: 'Cool',
-		  });
-  
-		//   try {
-		// 	const id = response.data.payload.deterrent;
-	
-		// 	// Getting the latest post
-		// 	const postResponse = await axios.get(`https://businessautomata.com/us-aid-api/api/get/post?deterrent=${id}`, {
-		// 		headers: {
-		// 		'Content-Type': 'application/json',
-		// 		},
-		// 	});
-		// 	setReloadSixPost(true);
-		// 	console.log('Getting latest post:', postResponse.data);
+			title: 'আমিও জিততে চাই',
+			content: content
+		};
+		const headers = {
+			'Authorization': `Bearer ${token}`,
+			'Accept': 'application/json'
+		};
+		axios.post("https://businessautomata.com/us-aid-api/api/member/posts", userData, {headers: headers})
+			.then((response) => {
+				console.log('Inserted Post:', response.status, response.data);
+				if (response.data.payload.id) {
+					Swal.fire({
+						title: 'সফল!',
+						text: 'পোস্ট সফল হয়েছে',
+						icon: 'success',
+						confirmButtonText: 'Cool',
+					});
 
-		// 	} catch (error) {
-		// 		console.error('Error:', error);
-		// 	}
- 
-		  
+					try {
+					const id = response.data.payload.deterrent;
+
+					// Getting the latest post
+					axios.get(`https://businessautomata.com/us-aid-api/api/get/post?deterrent=${id}`, {headers: headers})
+						.then((res) => {
+							console.log( 'get latestest post:', res.status, res.data);							
+							if (res.data.payload.id) {
+								setReloadSixPost(true);
+								setPostData(res.data.payload);
+							}
+						});
+
+					} catch (error) {
+						console.error('Error:', error);
+					}
+				}
+		});
+
+		} catch (error) {
+			console.error('Error:', error);
 		}
-	  } catch (error) {
-		console.error('Error:', error);
-	  }
 	};
 
 
@@ -129,73 +127,65 @@ const WritePostSection = () => {
 
 	return (
 		<>
-		<section className='blue-bg-img relative pb-10' id="makePost">
-			<div className='container mx-auto px-4'>
-				<div className='text-center'>
-					<div className='mx-auto w-[320px] md:w-[350px]'>
-						<div className='font-Kalpurush-bold yellowBg rounded-br-[22px] rounded-bl-[22px] text-5xl py-5 px-6 border-2 text-blue-dark '>লিখুন</div>
+			<section className='blue-bg-img relative pb-10' id="makePost">
+				<div className='container mx-auto px-4'>
+					<div className='text-center'>
+						<div className='mx-auto w-[320px] md:w-[350px]'>
+							<div className='font-Kalpurush-bold yellowBg rounded-br-[22px] rounded-bl-[22px] text-5xl py-5 px-6 border-2 text-blue-dark '>লিখুন</div>
+						</div>
+					</div>
+					
+					<form onSubmit={handlePostCreation} className="mt-16">
+
+						<div className="form-control">
+							<label className="label"><span className="label-text font-Kalpurush-bold text-white text-xl">স্লোগান নির্বাচিত করুন</span></label>
+
+							<select name="topicsid" className="select select-bordered w-full">
+								{
+									allTopics.map( (allTopic) =><option key={allTopic.id} value={allTopic.id}>{allTopic.title}</option> )
+								}
+							</select>
+
+						</div>
+
+						{/* <div className="form-control">
+							<label className="label"><span className="label-text font-Kalpurush-bold text-white text-xl">আপনার বক্তব্যের টাইটেল লিখুন</span></label>
+							<input name='name' type="text" placeholder="চাকরির নিশ্চয়তা চাই" className="input input-bordered" required />
+						</div> */}
+
+						<div className="form-control mt-4">
+							<label className="label"><span className="label-text font-Kalpurush-bold text-white text-xl">আপনার বক্তব্য লিখুন</span></label>
+							<EditorProvider>
+								<Editor value={html} placeholder="Test 2" onChange={handleEditorChange}>
+									<Toolbar>
+										<BtnUndo />
+										<BtnRedo />
+										<BtnBold />
+										<BtnItalic />
+									</Toolbar>
+								</Editor>
+							</EditorProvider>
+						</div>
+
+						<div className='flex w-full md:w-auto justify-center mt-10'>
+							<button className="btn bg-white text-3xl text-[#EA2027] font-Kalpurush-bold font-bold"><FaCircleArrowUp /> পোস্ট তৈরি করুন</button>
+						</div>
+
+					</form>	
+
+					{postData && <ReadyPost postData={postData}></ReadyPost>}
+
+				</div>
+			</section>
+			<section className='dark-blue-bg relative px-4 md:px-0 py-24'>
+				<div className='container mx-auto'>
+					<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
+						{
+							homePagePosts.map( (homePagePostsData, index) =><PostCard key={index} homePagePostsData={homePagePostsData}></PostCard> )
+						}
 					</div>
 				</div>
-				
-				<form onSubmit={handlePostCreation} className="mt-16">
-
-					<div className="form-control">
-						<label className="label"><span className="label-text font-Kalpurush-bold text-white text-xl">স্লোগান নির্বাচিত করুন</span></label>						
-
-						<select name="topicsid" className="select select-bordered w-full">
-							{
-								allTopics.map( (allTopic) =><option key={allTopic.id} value={allTopic.id}>{allTopic.title}</option> )
-							}
-						</select>
-
-					</div>
-
-					{/* <div className="form-control">
-						<label className="label"><span className="label-text font-Kalpurush-bold text-white text-xl">আপনার বক্তব্যের টাইটেল লিখুন</span></label>
-						<input name='name' type="text" placeholder="চাকরির নিশ্চয়তা চাই" className="input input-bordered" required />
-					</div> */}
-
-					<div className="form-control mt-4">
-						<label className="label"><span className="label-text font-Kalpurush-bold text-white text-xl">আপনার বক্তব্য লিখুন</span></label>
-						<EditorProvider>
-							<Editor value={html} placeholder="Test 2" onChange={handleEditorChange}>
-								<Toolbar>
-									<BtnUndo />
-									<BtnRedo />
-									<BtnBold />
-									<BtnItalic />
-								</Toolbar>
-							</Editor>
-						</EditorProvider>
-					</div>
-
-					<div className='flex w-full md:w-auto justify-center mt-10'>
-						<button className="btn bg-white text-3xl text-[#EA2027] font-Kalpurush-bold font-bold"><FaCircleArrowUp /> পোস্ট তৈরি করুন</button>
-					</div>
-
-				</form>	
-
-				<div className='flex items-center flex-wrap gap-8 mt-8 pb-24 hidden'>
-					<div className='flex w-full md:w-auto justify-center'>
-						<ul className='flex gap-8'>
-							<li className='bg-black p-4 rounded-full'><a href='' className='text-2xl text-white bg-black rounded-full share-link-style'><FaFacebookF /></a></li>
-							<li className='bg-black p-4 rounded-full'><a href='' className='text-2xl text-white bg-black rounded-full share-link-style'><FaInstagram /></a></li>
-							<li className='bg-black p-4 rounded-full'><a href='' className='text-2xl text-white bg-black rounded-full share-link-style'><FaTwitter /></a></li>
-							<li className='bg-black p-4 rounded-full'><a href='' className='text-2xl text-white bg-black rounded-full share-link-style'><FaWhatsapp /></a></li> 
-						</ul>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section className='dark-blue-bg relative px-4 md:px-0 py-24'>
-			<div className='container mx-auto'>
-				<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8'>
-					{
-						homePagePosts.map( (homePagePostsData, index) =><PostCard key={index} homePagePostsData={homePagePostsData}></PostCard> )
-					}
-				</div>
-			</div>
-		</section>
+			</section>
 		</>
 	)
 }

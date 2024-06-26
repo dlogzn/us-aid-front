@@ -21,8 +21,7 @@ const PosterCreateSection = () => {
 	useEffect(() => {
 	  // Replace 'your-api-endpoint' with the actual API endpoint
 	  axios.get('https://businessautomata.com/us-aid-api/api/get/topics')
-		.then(response => {
-			console.log(response)
+		.then(response => {			
 		  setData(response.data.payload);
 		})
 		.catch(error => {
@@ -53,6 +52,7 @@ const PosterCreateSection = () => {
   
 	const handleImageChange = (event) => {
 
+		
 		const file = event.target.files[0];
 		if (file) {
 			setSelectedImage(file);
@@ -66,14 +66,39 @@ const PosterCreateSection = () => {
 
 	};
 	
-	console.log(file);
-	console.log(file.name);
+	console.log( 'file here:' ,file);	
+
+	const token = localStorage.getItem('token');
 
 	const handlePosterCreation = (e) => {
 		e.preventDefault();
-		let rawImageFile = e.target.rawImageFile.value;
+		let rawImageFile = file;
 		let posterSloganText = e.target.posterSloganText.value;
-		console.log( 'poster data: ' , rawImageFile , posterSloganText )
+		console.log( 'poster data: ' , rawImageFile , posterSloganText );
+
+		// Create a new poster
+
+		//Member API for Production
+		let fd = new FormData()
+		fd.append("photo", file)
+		fd.append("topic_id", 2)
+
+		const headers = {
+			'Authorization': `Bearer ${token}`,
+			'Accept': 'application/json'
+		};
+
+		axios.post("https://businessautomata.com/us-aid-api/api/member/posters", fd, {headers: headers}).then((response) => {
+			console.log(response.status, response.data);
+			if (response.data.payload.id) {
+				Swal.fire({
+				  title: 'সফল!',
+				  text: 'পোস্ট সফল হয়েছে',
+				  icon: 'success',
+				  confirmButtonText: 'Cool',
+				});
+			}
+		});
 
 	}
 
@@ -90,8 +115,8 @@ const PosterCreateSection = () => {
 					<div className='flex flex-col md:flex-row justify-center md:justify-between mt-12 md:mt-32 items-center md:items-start gap-8 md:gap-0'>
 
 						<div>
-							<div className='font-Kalpurush-bold text-center mb-4 py-4 yellowBg text-2xl'>ছবি আপলোড করুন</div>
-							<ImageUploadField previewUrl={previewUrl} previewUrl1={previewUrl} file1={file}  handleImageChange={handleImageChange}></ImageUploadField>						
+							<div className='font-Kalpurush-bold text-center mb-4 py-4 yellowBg text-2xl'>ছবি আপলোড করুন</div>							
+							<ImageUploadField previewUrl={previewUrl} previewUrl1={previewUrl} file1={file}  handleImageChange={handleImageChange}></ImageUploadField>
 						</div>
 						<div>
 							<img src={Finalimage} alt=""/>						

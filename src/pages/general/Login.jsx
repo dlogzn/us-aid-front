@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { RiFacebookBoxFill } from "react-icons/ri";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const Login = () => {
+
+	const navigate = useNavigate();
+	const pageUrlToNavigate = useParams();
 
 	const [formData, setFormData] = useState({
 		email: '',
@@ -31,6 +35,18 @@ const Login = () => {
 		  localStorage.setItem('token', response.data.payload.token);
 		  setMessage('Login successful!');
 		  // toast here
+		  if (response.data.payload.user.id) {
+			Swal.fire({
+				title: 'সফল!',
+				text: 'লগইন সফল হয়েছে',
+				icon: 'success',
+				confirmButtonText: ' করুন'
+			}).then((result) => {				
+				if (result.isConfirmed) {
+					navigate("/" , pageUrlToNavigate);
+				}
+			})
+		}
 		  
 		  setErrors({});
 		} catch (error) {

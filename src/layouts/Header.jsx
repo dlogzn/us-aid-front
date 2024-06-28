@@ -7,13 +7,11 @@ import { FaBars } from "react-icons/fa";
 import { useContext, useState } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 
-const links = [{id: 1, to: '/about-us', title: 'আমাদের কথা'}, {id: 2, to: '/login', title: 'আপনার দাবি'}, {id: 3, to: '/contact', title: 'যোগাযোগ'}]
-const navLinks = links.map(navLink => <li className="hidden md:block" key={navLink.id}><Link  to={navLink.to} className="text-white rounded-md border-2 border-white md:px-4 md:py-4 lg:px-8 lg:py-4 md:text-md lg:text-xl font-Kalpurush-bold">{navLink.title}</Link></li>)
-const mobileNavLinks = links.map(navLink => <li className="block md:hidden" key={navLink.id}><Link to={navLink.to} className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-xs md:text-md block font-Kalpurush-bold">{navLink.title}</Link></li>)
-
 const Header = () => {
 
-	const { user , logOut } = useContext(AuthContext);
+	const { isLoggedIn , logOut } = useContext(AuthContext);
+	const token = localStorage.getItem('token');
+	console.log(isLoggedIn);
 
 	const [isVisible, setIsVisible] = useState(false);
 	
@@ -21,9 +19,53 @@ const Header = () => {
 		setIsVisible(!isVisible);
 	};
 
+	const handleClickMenu = () => {
+		setIsVisible(!isVisible);		
+	}
+
+	const onSubMenuLinkClick = (event) => {
+		event.preventDefault();
+	}
+	  
 	const handleLogOut = ()=>{
 		logOut().then(ruselt=>{}).catch(error=>{ console.error(error) });
 	}
+	
+	const links = [
+		{ id: 1, to: '/about-us', title: 'আমাদের কথা' },
+		{ id: 2, to: '/#', title: 'আপনার দাবি', hasChild: true, sublinks: [{ id: 1, to: '/all-posters', title: 'পোস্টার' }, { id: 2, to: '/all-videos', title: 'ভিডিও' }, { id: 3, to: '/all-posts', title: 'পোস্ট' }] },
+		{ id: 3, to: '/contact', title: 'যোগাযোগ' }
+	];
+  
+  const navLinks = links.map((navLink) => (
+	<li className={`hidden md:block ${navLink.hasChild ? 'hasSubMenu' : ''}`} key={navLink.id}>
+	  <Link to={navLink.to} className="text-white rounded-md border-2 border-white md:px-4 md:py-4 lg:px-8 lg:py-4 md:text-md lg:text-xl font-Kalpurush-bold" onClick={navLink.hasChild ? onSubMenuLinkClick : undefined}>{navLink.title}</Link>
+	  {navLink.hasChild && (
+		<ul className="block">
+		  {navLink.sublinks.map((sublink) => (
+			<li className="" key={sublink.id}>
+			  <Link to={sublink.to} className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-normal md:text-md block font-Kalpurush-bold">{sublink.title}</Link>
+			</li>
+		  ))}
+		</ul>
+	  )}
+	</li>
+  ));
+  
+  const mobileNavLinks = links.map((navLink) => (
+	<li className={`block md:hidden ${navLink.hasChild ? 'hasSubMenu' : ''}`} key={navLink.id}>
+	  <Link to={navLink.to} className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-xs md:text-md block font-Kalpurush-bold" onClick={navLink.hasChild ? onSubMenuLinkClick : undefined}>{navLink.title}</Link>
+	  {navLink.hasChild && (
+		<ul className="block">
+		  {navLink.sublinks.map((sublink) => (
+			<li className="" key={sublink.id}>
+			  <Link to={sublink.to} className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-normal md:text-md block font-Kalpurush-bold">{sublink.title}</Link>
+			</li>
+		  ))}
+		</ul>
+	  )}
+	</li>
+  ));
 
     return (
 		<>
@@ -49,12 +91,25 @@ const Header = () => {
 									<div className="hidden-div absolute top-[70px] p-[18px] left-[-190px] w-[250px] border-2 border-white bg-primaryColor rounded-md">
 										<ul>
 											{/* mobileNavLinks */}
-											<li>											
-												<Link className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block mb-4 font-Kalpurush-bold" to="/login">লগইন</Link>
-											</li>
-											<li>
-												<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block font-Kalpurush-bold" to="/register">সাইন আপ</Link>
-											</li>
+											{isLoggedIn ? (
+												<>
+													<li>
+														<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block mb-4 font-Kalpurush-bold" to="/register" onClick="handleClickMenu()">সাইন আপ</Link>
+													</li>
+													<li>
+														<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block font-Kalpurush-bold" onClick={handleLogOut}>লগ আউট</Link>
+													</li>
+												</>
+											) : (
+												<>
+													<li>
+														<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block mb-4 font-Kalpurush-bold" to="/register" onClick="handleClickMenu()">সাইন আপ</Link>
+													</li>
+													<li>
+														<Link className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block font-Kalpurush-bold" to="/login" onClick="handleClickMenu()">লগইন</Link>
+													</li>
+												</>
+											)}
 										</ul>
 									</div>
 								)}
@@ -73,11 +128,12 @@ const Header = () => {
 								<div className="hidden-div absolute top-[70px] p-[18px] left-[-190px] w-[250px] border-2 border-white bg-primaryColor rounded-md">
 									<ul>											
 										<li>											
-											<Link className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block mb-4 font-Kalpurush-bold" to="/login">লগইন</Link>
+											<Link className="text-white rounded-md border-2 border-white px-2 py-2 text-center text-md block mb-4 font-Kalpurush-bold" to="/login" onClick="handleClickMenu()">লগইন</Link>
 										</li>										
 										<li>											
-											<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block font-Kalpurush-bold" to="/register">সাইন আপ</Link>
+											<Link className="text-white rounded-md border-2 border-white px-3 py-2 text-center text-md block font-Kalpurush-bold" to="/register" onClick="handleClickMenu()">সাইন আপ</Link>
 										</li>
+										{isLoggedIn}
 									</ul>
 								</div>
 							)}

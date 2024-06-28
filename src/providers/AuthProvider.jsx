@@ -11,6 +11,7 @@ const githubProvider = new GithubAuthProvider();
 const AuthProvider = ({children}) => {
 
 	const [ user, setUser ] = useState(null);
+	const [ isLoggedIn, setIsLoggedIn ] = useState(false);
 	const [ loading, setLoading ] = useState(true);
 
 	// create any function that will can be called from any place just using the ' useContext '
@@ -27,36 +28,12 @@ const AuthProvider = ({children}) => {
 		return signInWithEmailAndPassword(auth, email, password)
 	}
 
-	// checking the user already logged in or not - set an observer
-	// useEffect( ()=>{
-	// 	const unSubscribe =  onAuthStateChanged( auth, currentUser=>{
-	// 		console.log('current user find ' , currentUser );
-	// 		const useEmail = currentUser?.email || user?.email;			
-	// 		const loggedUser = { email: useEmail };
-	// 		setUser(currentUser);
-	// 		setLoading(false); // hiding the loading after getting the user infomaration
-	// 		// for - if user exists then issue a token
-	// 		if (currentUser){
-	// 			axios.post('https://b9-a11-server.vercel.app/jwt', loggedUser , {withCredentials: true})
-	// 			.then( res => {
-	// 				console.log('token resp' , res.data);
-	// 			})
-	// 		} else {
-	// 			axios.post('https://b9-a11-server.vercel.app/logout', loggedUser , {withCredentials: true})
-	// 			.then( res => {
-	// 				console.log('token logout resp' , res.data);
-	// 			})
-	// 		}
-	// 	});
-	// 	return () =>{ unSubscribe(); }
-	// } , []);
-
-
-
 	const logOut = async ()=> {
 		try {
 			await signOut(auth);			
 			setLoading(false);
+			localStorage.removeItem('token');
+			console.log('on clicked logout');
 		} catch (error) {
 			console.error(error);
 		}
@@ -74,28 +51,19 @@ const AuthProvider = ({children}) => {
 
 	/*Normal Login Action*/
 
-	// useEffect(() => {
-	// 	const token = localStorage.getItem('token');
-	// 	if (token) {
-	// 	  axios.get('http://localhost:8000/api/user', {
-	// 		headers: {
-	// 		  Authorization: `Bearer ${token}`
-	// 		}
-	// 	  })
-	// 	  .then(response => {
-	// 		setUser(response.data);
-	// 	  })
-	// 	  .catch(() => {
-	// 		localStorage.removeItem('token');
-	// 		setUser(null);
-	// 	  });
-	// 	}
-	//   }, []);
+	useEffect(() => {
+		const token = localStorage.getItem('token');
+		if (token) {
+			setLoading(false);
+			setIsLoggedIn(true);
+		} else {
+			setLoading(true);
+			setIsLoggedIn(false);
+		}
+	}, []);
 	
-	/**/
 
-
-	const authInfo = { user , setUser, createUser, signInUser, logOut, loading, signInWithGoogle , signInWithGitHub }
+	const authInfo = { user , setUser, createUser, signInUser, logOut, loading, signInWithGoogle , signInWithGitHub, isLoggedIn, setIsLoggedIn }
 
 	return (
 		<AuthContext.Provider value={authInfo}>

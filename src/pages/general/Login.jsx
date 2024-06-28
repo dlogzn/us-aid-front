@@ -1,11 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { FcGoogle } from "react-icons/fc";
 import { RiFacebookBoxFill } from "react-icons/ri";
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { AuthContext } from '../../providers/AuthProvider';
 
 const Login = () => {
+
+	const { isLoggedIn, setIsLoggedIn } = useContext(AuthContext);
 
 	const navigate = useNavigate();
 	const pageUrlToNavigate = useParams();
@@ -15,27 +18,27 @@ const Login = () => {
 		password: ''
 	  });
 
+	const [errors, setErrors] = useState({});
+	const [message, setMessage] = useState('');
 
-	  const [errors, setErrors] = useState({});
-	  const [message, setMessage] = useState('');
+	const handleChange = (e) => {
+	setFormData({
+		...formData,
+		[e.target.name]: e.target.value
+	});
+	};
 	
-	  const handleChange = (e) => {
-		setFormData({
-		  ...formData,
-		  [e.target.name]: e.target.value
-		});
-	  };
-	
-	  const handleSubmit = async (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
 		try {
-		  const response = await axios.post('https://businessautomata.com/us-aid-api/api/auth/login', formData);
-		  console.log(response);
-		  console.log(response.data.payload.token);
-		  localStorage.setItem('token', response.data.payload.token);
-		  setMessage('Login successful!');
-		  // toast here
-		  if (response.data.payload.user.id) {
+			const response = await axios.post('https://businessautomata.com/us-aid-api/api/auth/login', formData);
+			console.log(response);
+			console.log(response.data.payload.token);
+			localStorage.setItem('token', response.data.payload.token);
+			setIsLoggedIn(true);		  
+			setMessage('Login successful!');
+			// toast here
+			if (response.data.payload.user.id) {
 			Swal.fire({
 				title: 'সফল!',
 				text: 'লগইন সফল হয়েছে',
@@ -47,14 +50,14 @@ const Login = () => {
 				}
 			})
 		}
-		  
-		  setErrors({});
+			
+			setErrors({});
 		} catch (error) {
-		  if (error.response) {
+			if (error.response) {
 			setErrors(error.response.data.errors || { message: error.response.data.message });
-		  }
+			}
 		}
-	  };	  
+	};	  
 
 	  //console.log(message);
 

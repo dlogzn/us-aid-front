@@ -2,9 +2,9 @@ import React from 'react'
 
 const AboutUs = () => {
 	return (
-		<div className='flex justify-center items-center bg-common-bg bg-no-repeat bg-cover pb-[20px] md:pb-[2%] px-4 mt-[-75px] md:mt-0'>
+		<div className='flex justify-center items-center bg-common-bg  bg-repeat-y bg-auto md:bg-cover pb-[20px] md:pb-[2%] px-4 mt-[-75px] md:mt-0'>
 		
-			<div className='container mx-auto pt-12 md:pt-20 pb-8 md:pb-12'>
+			<div className='container mx-auto pt-28 md:pt-20 pb-8 md:pb-12'>
 				<div className='text-center font-Kalpurush-bold'><h2 className='text-white text-3xl md:text-6xl font-Kalpurush-bold mb-8 md:mb-12'>আমাদের কথা</h2></div>
 				<div className='whiteBox mt-8 text-2xl rounded-3xl font-bold p-10 mx-4 md:mx-0'>
 					<p className='font-Kalpurush-bold text-blue-dark'>জিততে চায় সবাই। জিততে চায় নেতা, জিততে চায় রাজনৈতিক দল। কিন্তু আমার জেতার কথা বলে কয় জন?</p>

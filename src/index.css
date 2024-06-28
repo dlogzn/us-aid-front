@@ -155,3 +155,39 @@ p {
 
     }
 }
+
+.hasSubMenu {
+    position: relative;
+}
+.hasSubMenu:hover > ul {     
+    display: flex;
+}  
+.hasSubMenu > ul {
+    display: none;
+    position: absolute;
+    left: 0;
+    top: 45px;
+    background-color: #2BA5DD;
+    z-index: 4;
+    padding: 10px;
+    border-radius: 10px;
+    border: 2px solid #fff;
+    width: 100%;   
+    gap: 15px;
+    flex-direction: column;
+}
+@media(max-width: 767px) {
+    .hasSubMenu > ul {
+        width: 150px;
+    }
+}
+
+nav ul li a {
+    transition: all .4s ease-in;
+}
+nav ul li a:hover {
+    background-color: #fff;
+    color: #2BA5DD;
+}
+.hasSubMenu > ul li {
+}

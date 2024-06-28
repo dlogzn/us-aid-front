@@ -9,8 +9,8 @@ const SinglePost = () => {
 	const { topic, title, content, user, deterrent  } = postSingle.payload;
 
 	return (
-		<div className='flex justify-center items-center bg-common-bg bg-no-repeat bg-cover pb-[20px] md:pb-[2%] px-4 mt-[-75px] md:mt-0'>
-			<div className='container mx-auto pt-12 md:pt-20 pb-8 md:pb-12'>
+		<div className='flex justify-center items-center bg-common-bg bg-repeat-y bg-auto md:bg-cover pb-[20px] md:pb-[2%] px-4 mt-[-75px] md:mt-0'>
+			<div className='container mx-auto pt-28 md:pt-20 pb-8 md:pb-12'>
 			<div className='text-center font-Kalpurush-bold'><h2 className='text-white text-3xl md:text-6xl font-Kalpurush-bold mb-8 md:mb-12'>{ topic.title }</h2></div>
 				<div className='single-post-card bg-white border-2 border-black rounded-[22px] p-8'>
 					<p className='text-xl text-black'>{ topic.title }</p>

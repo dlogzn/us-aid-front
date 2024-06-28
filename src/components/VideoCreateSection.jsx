@@ -11,11 +11,23 @@ const VideoCreateSection = () => {
 
 	const [videoFile, setVideoFile] = useState(null);
 
-	const handleVideoCreation = (event) => {
+	const handleVideoCreationChange = (event) => {
 	  event.preventDefault();
   
 	  // Get the uploaded file
 	  const uploadedFile = event.target.files[0];
+	  setVideoFile(uploadedFile);
+	  console.log(uploadedFile);
+	}
+
+	const handleVideoCreation = (event) => {
+	  event.preventDefault();
+  
+	  // Get the uploaded file
+	  const uploadedFile = videoFile;
+	  let fd = new FormData()
+	  fd.append("video", videoFile)	
+	  console.log(videoFile);
   
 	  // Basic validation (optional)
 	  if (!uploadedFile || !uploadedFile.type.startsWith('video/')) {
@@ -24,16 +36,12 @@ const VideoCreateSection = () => {
 	  }
   
 	  // Update state with the uploaded file
-	  setVideoFile(uploadedFile);
+	  
+	  
   
 	};
 
 	console.log(videoFile);
-
-
-	const handleVideoChange = () => {
-		console.log('video');
-	}
 
 	return (
 		<section className='light-blue-bg-img relative' id="makePoster">
@@ -48,7 +56,7 @@ const VideoCreateSection = () => {
 						<div className='mx-auto'>
 							<img className='mb-4' src={UploadVideo} alt=""/>
 							{isLoggedIn ? (								
-								<input name='video' type="file" accept="video/*" onChange={handleVideoCreation} style={{ marginBottom: '15px' }} />
+								<input name='video' type="file" accept="video/*" onChange={handleVideoCreationChange} style={{ marginBottom: '15px' }} />
 							) : (
 								<div className='flex w-full md:w-auto justify-center mb-8'>
 									<button className="btn bg-white text-normal text-[#EA2027] font-Kalpurush-bold font-bold"><FaUserTie />ভিডিও আপলোড করতে লগইন করুন</button>

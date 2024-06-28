@@ -4,6 +4,7 @@ import UploadVideo from '../assets/video-holder.jpg'
 import { FaFacebookF, FaInstagram, FaTwitter, FaCircleArrowUp } from "react-icons/fa6";
 import { FaUserTie, FaWhatsapp } from "react-icons/fa";
 import AuthProvider, { AuthContext } from '../providers/AuthProvider';
+import axios from 'axios';
 
 const VideoCreateSection = () => {
 
@@ -21,22 +22,40 @@ const VideoCreateSection = () => {
 	}
 
 	const handleVideoCreation = (event) => {
-	  event.preventDefault();
-  
-	  // Get the uploaded file
-	  const uploadedFile = videoFile;
-	  let fd = new FormData()
-	  fd.append("video", videoFile)	
-	  console.log(videoFile);
-  
-	  // Basic validation (optional)
-	  if (!uploadedFile || !uploadedFile.type.startsWith('video/')) {
-		console.error('Invalid file uploaded. Please select a video file.');
+		event.preventDefault();
+
+		// Get the uploaded file
+		const uploadedFile = videoFile;
+		let fd = new FormData()
+		fd.append("video", videoFile)	
+		console.log(videoFile);
+
+		// Basic validation (optional)
+		if (!uploadedFile || !uploadedFile.type.startsWith('video/')) {
+			console.error('Invalid file uploaded. Please select a video file.');
 		return;
-	  }
+	}
   
+	  const token = localStorage.getItem('token');
+	  const headers = {
+		  'Authorization': `Bearer ${token}`,
+		  'Accept': 'application/json'
+	  };
 	  // Update state with the uploaded file
-	  
+		axios.post("https://businessautomata.com/us-aid-api/api/member/videos", fd, {headers: headers}).then((response) => {
+			console.log(response.status, response.data);
+/*
+			if (response.data.payload.id) {
+				Swal.fire({
+				title: 'সফল!',
+				text: 'পোস্ট সফল হয়েছে',
+				icon: 'success',
+				confirmButtonText: 'Cool',
+				});
+			}
+				*/
+
+		});
 	  
   
 	};
